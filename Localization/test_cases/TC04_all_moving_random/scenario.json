@@ -1,0 +1,87 @@
+{
+  "case": "TC04_all_moving_random",
+  "title": "All five nodes moving",
+  "description": "Every node follows a smoothed pedestrian-like random walk at 0.3-1.2 m/s. Nodes stay inside the floor and steer away from each other. All links are line of sight.",
+  "duration_s": 30.0,
+  "seed": 1004,
+  "arena_m": [
+    10.0,
+    10.0
+  ],
+  "node_height_m": 1.0,
+  "nodes": [
+    "N1",
+    "N2",
+    "N3",
+    "N4",
+    "N5"
+  ],
+  "initial_positions_m": {
+    "N1": [
+      2.0,
+      2.0
+    ],
+    "N2": [
+      8.0,
+      2.0
+    ],
+    "N3": [
+      8.0,
+      8.0
+    ],
+    "N4": [
+      2.0,
+      8.0
+    ],
+    "N5": [
+      5.0,
+      5.0
+    ]
+  },
+  "ranging": {
+    "method": "DS-TWR",
+    "channel": 5,
+    "cycle_s": 0.1,
+    "slot_s": 0.01,
+    "pair_rate_hz": 10.0,
+    "pair_order": [
+      "N1-N2",
+      "N1-N3",
+      "N1-N4",
+      "N1-N5",
+      "N2-N3",
+      "N2-N4",
+      "N2-N5",
+      "N3-N4",
+      "N3-N5",
+      "N4-N5"
+    ],
+    "initiator": "alternates every cycle"
+  },
+  "obstacles": [],
+  "offline_windows_s": {},
+  "expected_behaviour": [
+    "All pairwise ranges change continuously",
+    "Cooperative localization should track every node; compare to ground_truth.csv"
+  ],
+  "stats": {
+    "records": 3000,
+    "ok": 2958,
+    "timeout": 32,
+    "rx_error": 10,
+    "nlos_measurements": 0,
+    "nlos_links": {},
+    "faults": {},
+    "true_range_m": [
+      0.892,
+      9.845
+    ],
+    "valid_measured_range_m": [
+      0.795,
+      9.9
+    ],
+    "max_valid_tof_ps": 33033.1,
+    "los_error_mean_m": -0.0023,
+    "los_error_std_m": 0.0667
+  }
+}

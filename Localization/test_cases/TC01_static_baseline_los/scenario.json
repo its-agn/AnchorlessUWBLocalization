@@ -1,0 +1,88 @@
+{
+  "case": "TC01_static_baseline_los",
+  "title": "Static baseline, line of sight",
+  "description": "Five stationary nodes on a regular pentagon (radius 4 m, centred at 5,5). All links are line of sight. Use this case to measure the raw ranging noise floor and per-pair bias, and to verify basic multilateration.",
+  "duration_s": 20.0,
+  "seed": 1001,
+  "arena_m": [
+    10.0,
+    10.0
+  ],
+  "node_height_m": 1.0,
+  "nodes": [
+    "N1",
+    "N2",
+    "N3",
+    "N4",
+    "N5"
+  ],
+  "initial_positions_m": {
+    "N1": [
+      5.0,
+      9.0
+    ],
+    "N2": [
+      1.1958,
+      6.2361
+    ],
+    "N3": [
+      2.6489,
+      1.7639
+    ],
+    "N4": [
+      7.3511,
+      1.7639
+    ],
+    "N5": [
+      8.8042,
+      6.2361
+    ]
+  },
+  "ranging": {
+    "method": "DS-TWR",
+    "channel": 5,
+    "cycle_s": 0.1,
+    "slot_s": 0.01,
+    "pair_rate_hz": 10.0,
+    "pair_order": [
+      "N1-N2",
+      "N1-N3",
+      "N1-N4",
+      "N1-N5",
+      "N2-N3",
+      "N2-N4",
+      "N2-N5",
+      "N3-N4",
+      "N3-N5",
+      "N4-N5"
+    ],
+    "initiator": "alternates every cycle"
+  },
+  "obstacles": [],
+  "offline_windows_s": {},
+  "expected_behaviour": [
+    "Every link LOS; errors ~N(pair bias, 4-7 cm)",
+    "Localization should recover the pentagon (up to rotation/reflection) within ~0.1 m",
+    "Estimated positions should stay still"
+  ],
+  "stats": {
+    "records": 2000,
+    "ok": 1968,
+    "timeout": 27,
+    "rx_error": 5,
+    "nlos_measurements": 0,
+    "nlos_links": {},
+    "faults": {},
+    "true_range_m": [
+      4.702,
+      7.609
+    ],
+    "valid_measured_range_m": [
+      4.487,
+      7.852
+    ],
+    "max_valid_tof_ps": 26199.9,
+    "los_error_mean_m": -0.0164,
+    "los_error_std_m": 0.0672
+  }
+}

@@ -1,0 +1,87 @@
+{
+  "case": "TC03_single_mover",
+  "title": "One moving node, four static",
+  "description": "N1-N4 stand still on the corners of an 8 x 8 m square. After 2 s, N5 walks a 4 x 4 m rectangle inside the square at 1.0 m/s and loops it for the rest of the run.",
+  "duration_s": 30.0,
+  "seed": 1003,
+  "arena_m": [
+    10.0,
+    10.0
+  ],
+  "node_height_m": 1.0,
+  "nodes": [
+    "N1",
+    "N2",
+    "N3",
+    "N4",
+    "N5"
+  ],
+  "initial_positions_m": {
+    "N1": [
+      1.0,
+      1.0
+    ],
+    "N2": [
+      9.0,
+      1.0
+    ],
+    "N3": [
+      9.0,
+      9.0
+    ],
+    "N4": [
+      1.0,
+      9.0
+    ],
+    "N5": [
+      3.0,
+      3.0
+    ]
+  },
+  "ranging": {
+    "method": "DS-TWR",
+    "channel": 5,
+    "cycle_s": 0.1,
+    "slot_s": 0.01,
+    "pair_rate_hz": 10.0,
+    "pair_order": [
+      "N1-N2",
+      "N1-N3",
+      "N1-N4",
+      "N1-N5",
+      "N2-N3",
+      "N2-N4",
+      "N2-N5",
+      "N3-N4",
+      "N3-N5",
+      "N4-N5"
+    ],
+    "initiator": "alternates every cycle"
+  },
+  "obstacles": [],
+  "offline_windows_s": {},
+  "expected_behaviour": [
+    "Static nodes should stay put",
+    "N5 track should trace a 4 x 4 m rectangle at 1 m/s"
+  ],
+  "stats": {
+    "records": 3000,
+    "ok": 2951,
+    "timeout": 44,
+    "rx_error": 5,
+    "nlos_measurements": 0,
+    "nlos_links": {},
+    "faults": {},
+    "true_range_m": [
+      2.828,
+      11.314
+    ],
+    "valid_measured_range_m": [
+      2.738,
+      11.557
+    ],
+    "max_valid_tof_ps": 38562.6,
+    "los_error_mean_m": 0.0049,
+    "los_error_std_m": 0.0742
+  }
+}

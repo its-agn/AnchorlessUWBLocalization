@@ -1,0 +1,108 @@
+{
+  "case": "TC10_invalid_and_outliers",
+  "title": "Corrupted, impossible and malformed packets",
+  "description": "Slow motion: N2 walks toward N1 until they are 0.4 m apart, then back, and N5 drifts along the top edge. About 2% of records are corrupted with spikes (+3 to 8 m), negative ToF at close range, impossible ranges (18-60 m), missing fields, unknown or self-referencing node IDs, packets delivered 2-5 s late, swapped (out-of-order) packets and exact duplicates. Each fault is labelled in labels.jsonl. Apart from the labelled faults, every range is within (0, 15] m.",
+  "duration_s": 25.0,
+  "seed": 1010,
+  "arena_m": [
+    10.0,
+    10.0
+  ],
+  "node_height_m": 1.0,
+  "nodes": [
+    "N1",
+    "N2",
+    "N3",
+    "N4",
+    "N5"
+  ],
+  "initial_positions_m": {
+    "N1": [
+      3.0,
+      5.0
+    ],
+    "N2": [
+      6.5,
+      5.0
+    ],
+    "N3": [
+      1.5,
+      1.5
+    ],
+    "N4": [
+      8.5,
+      2.0
+    ],
+    "N5": [
+      5.0,
+      8.5
+    ]
+  },
+  "ranging": {
+    "method": "DS-TWR",
+    "channel": 5,
+    "cycle_s": 0.1,
+    "slot_s": 0.01,
+    "pair_rate_hz": 10.0,
+    "pair_order": [
+      "N1-N2",
+      "N1-N3",
+      "N1-N4",
+      "N1-N5",
+      "N2-N3",
+      "N2-N4",
+      "N2-N5",
+      "N3-N4",
+      "N3-N5",
+      "N4-N5"
+    ],
+    "initiator": "alternates every cycle"
+  },
+  "obstacles": [],
+  "offline_windows_s": {},
+  "expected_behaviour": [
+    "Ingestion rejects/flags every labelled fault (MVP 3.f)",
+    "Negative and > 15 m ranges rejected as physically impossible",
+    "Duplicates (same source_id + seq) dropped; stale packets flagged by age",
+    "Localization output unaffected by the injected faults"
+  ],
+  "stats": {
+    "records": 2508,
+    "ok": 2484,
+    "timeout": 18,
+    "rx_error": 6,
+    "nlos_measurements": 0,
+    "nlos_links": {},
+    "faults": {
+      "duplicate": 8,
+      "spike": 12,
+      "out_of_order": 10,
+      "missing_field": 6,
+      "invalid_node_id": 5,
+      "impossible_range": 6,
+      "stale_timestamp": 6,
+      "negative_range": 6
+    },
+    "true_range_m": [
+      0.419,
+      9.549
+    ],
+    "valid_measured_range_m": [
+      0.375,
+      9.673
+    ],
+    "max_valid_tof_ps": 32275.4,
+    "los_error_mean_m": 0.0075,
+    "los_error_std_m": 0.0638
+  },
+  "fault_counts_requested": {
+    "spike": 12,
+    "negative_range": 6,
+    "impossible_range": 6,
+    "missing_field": 6,
+    "invalid_node_id": 5,
+    "stale_timestamp": 6,
+    "out_of_order": 5,
+    "duplicate": 8
+  }
+}

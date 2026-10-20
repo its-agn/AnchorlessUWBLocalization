@@ -1,0 +1,148 @@
+{
+  "case": "TC05_rigid_group_motion",
+  "title": "Whole group moves as a rigid body",
+  "description": "The five nodes form a compact, slightly irregular formation (~3 m across) that moves as one rigid body. It holds still for 3 s, translates 6 m in +x at 0.8 m/s, pauses for 2 s, rotates 30 deg about its centre over 5 s, then holds. Pairwise distances never change, so the ranges look identical to a static scene. This is the documented failure mode that the IMU is meant to fix.",
+  "duration_s": 25.0,
+  "seed": 1005,
+  "arena_m": [
+    10.0,
+    10.0
+  ],
+  "node_height_m": 1.0,
+  "nodes": [
+    "N1",
+    "N2",
+    "N3",
+    "N4",
+    "N5"
+  ],
+  "initial_positions_m": {
+    "N1": [
+      2.0,
+      6.0
+    ],
+    "N2": [
+      3.45,
+      4.9
+    ],
+    "N3": [
+      2.85,
+      3.25
+    ],
+    "N4": [
+      1.1,
+      3.3
+    ],
+    "N5": [
+      0.6,
+      4.95
+    ]
+  },
+  "ranging": {
+    "method": "DS-TWR",
+    "channel": 5,
+    "cycle_s": 0.1,
+    "slot_s": 0.01,
+    "pair_rate_hz": 10.0,
+    "pair_order": [
+      "N1-N2",
+      "N1-N3",
+      "N1-N4",
+      "N1-N5",
+      "N2-N3",
+      "N2-N4",
+      "N2-N5",
+      "N3-N4",
+      "N3-N5",
+      "N4-N5"
+    ],
+    "initiator": "alternates every cycle"
+  },
+  "obstacles": [],
+  "offline_windows_s": {},
+  "expected_behaviour": [
+    "Ranges are statistically stationary for the whole run",
+    "UWB-only localization cannot see the translation/rotation; it should report a static shape (or flag reduced observability)",
+    "Ground truth shows 6 m translation + 30 deg rotation"
+  ],
+  "stats": {
+    "records": 2500,
+    "ok": 2490,
+    "timeout": 9,
+    "rx_error": 1,
+    "nlos_measurements": 0,
+    "nlos_links": {},
+    "faults": {},
+    "true_range_m": [
+      1.724,
+      2.878
+    ],
+    "valid_measured_range_m": [
+      1.594,
+      3.031
+    ],
+    "max_valid_tof_ps": 10114.2,
+    "los_error_mean_m": 0.0051,
+    "los_error_std_m": 0.0547
+  },
+  "formation_offsets_m": [
+    [
+      0.0,
+      1.5
+    ],
+    [
+      1.45,
+      0.4
+    ],
+    [
+      0.85,
+      -1.25
+    ],
+    [
+      -0.9,
+      -1.2
+    ],
+    [
+      -1.4,
+      0.45
+    ]
+  ],
+  "keyframes_t_cx_cy_heading_deg": [
+    [
+      0.0,
+      2.0,
+      4.5,
+      0.0
+    ],
+    [
+      3.0,
+      2.0,
+      4.5,
+      0.0
+    ],
+    [
+      10.5,
+      8.0,
+      4.5,
+      0.0
+    ],
+    [
+      12.5,
+      8.0,
+      4.5,
+      0.0
+    ],
+    [
+      17.5,
+      8.0,
+      4.5,
+      30.0
+    ],
+    [
+      25.0,
+      8.0,
+      4.5,
+      30.0
+    ]
+  ]
+}

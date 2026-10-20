@@ -1,0 +1,182 @@
+{
+  "case": "TC08_nlos_obstruction",
+  "title": "NLOS: wall, pillar and a walking person",
+  "description": "Five static nodes. A drywall partition permanently blocks N1-N2, and a concrete pillar permanently blocks N4-N5. From t = 3 s, a person walks back and forth along x = 7 and briefly blocks N1-N2, N1-N3, N2-N4, N2-N5, N3-N4 and N3-N5 as they cross. NLOS ranges read long (+0.2 to +1.5 m), with higher variance and lower RSSI. Their RSSI minus first-path power gap is above 10 dB, against under 6 dB for LOS. labels.jsonl marks every NLOS measurement and its blockers.",
+  "duration_s": 30.0,
+  "seed": 1008,
+  "arena_m": [
+    10.0,
+    10.0
+  ],
+  "node_height_m": 1.0,
+  "nodes": [
+    "N1",
+    "N2",
+    "N3",
+    "N4",
+    "N5"
+  ],
+  "initial_positions_m": {
+    "N1": [
+      1.0,
+      1.0
+    ],
+    "N2": [
+      9.0,
+      1.5
+    ],
+    "N3": [
+      8.5,
+      8.5
+    ],
+    "N4": [
+      1.5,
+      8.0
+    ],
+    "N5": [
+      5.6,
+      5.2
+    ]
+  },
+  "ranging": {
+    "method": "DS-TWR",
+    "channel": 5,
+    "cycle_s": 0.1,
+    "slot_s": 0.01,
+    "pair_rate_hz": 10.0,
+    "pair_order": [
+      "N1-N2",
+      "N1-N3",
+      "N1-N4",
+      "N1-N5",
+      "N2-N3",
+      "N2-N4",
+      "N2-N5",
+      "N3-N4",
+      "N3-N5",
+      "N4-N5"
+    ],
+    "initiator": "alternates every cycle"
+  },
+  "obstacles": [
+    {
+      "name": "drywall_partition",
+      "material": "drywall",
+      "shape": "segment",
+      "p1_m": [
+        5.0,
+        0.3
+      ],
+      "p2_m": [
+        5.0,
+        3.0
+      ],
+      "model": {
+        "bias_m": [
+          0.3,
+          0.8
+        ],
+        "sigma_m": 0.15,
+        "atten_db": [
+          6.0,
+          9.0
+        ]
+      }
+    },
+    {
+      "name": "concrete_pillar",
+      "material": "concrete",
+      "shape": "circle",
+      "radius_m": 0.3,
+      "centre_m": [
+        4.78,
+        5.76
+      ],
+      "model": {
+        "bias_m": [
+          0.6,
+          1.5
+        ],
+        "sigma_m": 0.3,
+        "atten_db": [
+          12.0,
+          15.0
+        ]
+      }
+    },
+    {
+      "name": "walking_person",
+      "material": "person",
+      "shape": "circle",
+      "radius_m": 0.25,
+      "path": {
+        "waypoints_m": [
+          [
+            7.0,
+            9.6
+          ],
+          [
+            7.0,
+            0.4
+          ]
+        ],
+        "loop": true,
+        "speed_mps": 1.0,
+        "start_delay_s": 3.0
+      },
+      "model": {
+        "bias_m": [
+          0.2,
+          0.5
+        ],
+        "sigma_m": 0.18,
+        "atten_db": [
+          8.0,
+          12.0
+        ]
+      }
+    }
+  ],
+  "offline_windows_s": {},
+  "expected_behaviour": [
+    "N1-N2 and N4-N5 biased long for the whole run",
+    "Short NLOS bursts on links the person crosses",
+    "RSSI - FP power > 10 dB flags NLOS (non-ML baseline)",
+    "NLOS-aware weighting should reduce position error vs. naive LS"
+  ],
+  "stats": {
+    "records": 3000,
+    "ok": 2946,
+    "timeout": 43,
+    "rx_error": 11,
+    "nlos_measurements": 703,
+    "nlos_links": {
+      "concrete_pillar": {
+        "N4-N5": 300
+      },
+      "drywall_partition": {
+        "N1-N2": 300
+      },
+      "walking_person": {
+        "N1-N2": 15,
+        "N1-N3": 21,
+        "N2-N4": 21,
+        "N2-N5": 23,
+        "N3-N4": 15,
+        "N3-N5": 23
+      }
+    },
+    "faults": {},
+    "true_range_m": [
+      4.393,
+      10.607
+    ],
+    "valid_measured_range_m": [
+      4.21,
+      11.445
+    ],
+    "max_valid_tof_ps": 38188.0,
+    "los_error_mean_m": 0.004,
+    "los_error_std_m": 0.0732
+  }
+}

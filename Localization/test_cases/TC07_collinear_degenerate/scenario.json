@@ -1,0 +1,88 @@
+{
+  "case": "TC07_collinear_degenerate",
+  "title": "Near-collinear geometry, then recovery",
+  "description": "All five nodes start almost on the line y = 5, with at most 5 cm lateral offset. This geometry is degenerate: the 2D solution is ill-conditioned and has a reflection ambiguity across the line. At t = 12 s, N4 walks 2 m off the line at 1 m/s, after which the geometry is well conditioned.",
+  "duration_s": 25.0,
+  "seed": 1007,
+  "arena_m": [
+    10.0,
+    10.0
+  ],
+  "node_height_m": 1.0,
+  "nodes": [
+    "N1",
+    "N2",
+    "N3",
+    "N4",
+    "N5"
+  ],
+  "initial_positions_m": {
+    "N1": [
+      1.0,
+      5.02
+    ],
+    "N2": [
+      3.0,
+      4.97
+    ],
+    "N3": [
+      5.0,
+      5.04
+    ],
+    "N4": [
+      7.0,
+      4.99
+    ],
+    "N5": [
+      9.0,
+      5.03
+    ]
+  },
+  "ranging": {
+    "method": "DS-TWR",
+    "channel": 5,
+    "cycle_s": 0.1,
+    "slot_s": 0.01,
+    "pair_rate_hz": 10.0,
+    "pair_order": [
+      "N1-N2",
+      "N1-N3",
+      "N1-N4",
+      "N1-N5",
+      "N2-N3",
+      "N2-N4",
+      "N2-N5",
+      "N3-N4",
+      "N3-N5",
+      "N4-N5"
+    ],
+    "initiator": "alternates every cycle"
+  },
+  "obstacles": [],
+  "offline_windows_s": {},
+  "expected_behaviour": [
+    "Before 12 s: solver should flag poor geometry (high GDOP / low confidence)",
+    "Lateral position of nodes is essentially unobservable before 12 s",
+    "After ~14 s: estimates converge"
+  ],
+  "stats": {
+    "records": 2500,
+    "ok": 2480,
+    "timeout": 15,
+    "rx_error": 5,
+    "nlos_measurements": 0,
+    "nlos_links": {},
+    "faults": {},
+    "true_range_m": [
+      2.0,
+      8.0
+    ],
+    "valid_measured_range_m": [
+      1.823,
+      8.185
+    ],
+    "max_valid_tof_ps": 27310.2,
+    "los_error_mean_m": -0.0061,
+    "los_error_std_m": 0.0614
+  }
+}

@@ -1,0 +1,96 @@
+{
+  "case": "TC09_dropouts_and_recovery",
+  "title": "Packet loss, burst outage and a node dropout",
+  "description": "All nodes are moving. On top of the normal timeouts there is 5% random packet loss, and the N2-N3 link fails completely from 6 s to 8 s. N4 powers off from 10 s to 14 s: it sends no reports, and other nodes ranging to it record timeouts. When N4 comes back it has rebooted, so its seq counter restarts at 0.",
+  "duration_s": 30.0,
+  "seed": 1009,
+  "arena_m": [
+    10.0,
+    10.0
+  ],
+  "node_height_m": 1.0,
+  "nodes": [
+    "N1",
+    "N2",
+    "N3",
+    "N4",
+    "N5"
+  ],
+  "initial_positions_m": {
+    "N1": [
+      1.5,
+      5.0
+    ],
+    "N2": [
+      5.0,
+      1.5
+    ],
+    "N3": [
+      8.5,
+      5.0
+    ],
+    "N4": [
+      5.0,
+      8.5
+    ],
+    "N5": [
+      5.0,
+      5.0
+    ]
+  },
+  "ranging": {
+    "method": "DS-TWR",
+    "channel": 5,
+    "cycle_s": 0.1,
+    "slot_s": 0.01,
+    "pair_rate_hz": 10.0,
+    "pair_order": [
+      "N1-N2",
+      "N1-N3",
+      "N1-N4",
+      "N1-N5",
+      "N2-N3",
+      "N2-N4",
+      "N2-N5",
+      "N3-N4",
+      "N3-N5",
+      "N4-N5"
+    ],
+    "initiator": "alternates every cycle"
+  },
+  "obstacles": [],
+  "offline_windows_s": {
+    "N4": [
+      [
+        10.0,
+        14.0
+      ]
+    ]
+  },
+  "expected_behaviour": [
+    "System tolerates missing ranges without diverging (MVP 1.d)",
+    "N2-N3 link expires after 6 s and is restored at 8 s",
+    "N4 estimate marked degraded/stale during 10-14 s, recovers automatically (MVP 1.e)",
+    "Pipeline handles N4 seq reset to 0 after reboot"
+  ],
+  "stats": {
+    "records": 2920,
+    "ok": 2658,
+    "timeout": 217,
+    "rx_error": 45,
+    "nlos_measurements": 0,
+    "nlos_links": {},
+    "faults": {},
+    "true_range_m": [
+      0.815,
+      9.007
+    ],
+    "valid_measured_range_m": [
+      0.804,
+      9.088
+    ],
+    "max_valid_tof_ps": 30324.6,
+    "los_error_mean_m": 0.0013,
+    "los_error_std_m": 0.063
+  }
+}

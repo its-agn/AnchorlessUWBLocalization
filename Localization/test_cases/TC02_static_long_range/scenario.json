@@ -1,0 +1,88 @@
+{
+  "case": "TC02_static_long_range",
+  "title": "Static, long range near the 15 m limit",
+  "description": "Four nodes in the corners of the floor and one off-centre. The diagonals are about 13.5 m, close to the 15 m limit. Range noise grows with distance, RSSI drops to about -86 dBm, and timeouts are more frequent on the longest links.",
+  "duration_s": 20.0,
+  "seed": 1002,
+  "arena_m": [
+    10.0,
+    10.0
+  ],
+  "node_height_m": 1.0,
+  "nodes": [
+    "N1",
+    "N2",
+    "N3",
+    "N4",
+    "N5"
+  ],
+  "initial_positions_m": {
+    "N1": [
+      0.2,
+      0.2
+    ],
+    "N2": [
+      9.8,
+      0.3
+    ],
+    "N3": [
+      9.8,
+      9.8
+    ],
+    "N4": [
+      0.3,
+      9.7
+    ],
+    "N5": [
+      5.2,
+      4.6
+    ]
+  },
+  "ranging": {
+    "method": "DS-TWR",
+    "channel": 5,
+    "cycle_s": 0.1,
+    "slot_s": 0.01,
+    "pair_rate_hz": 10.0,
+    "pair_order": [
+      "N1-N2",
+      "N1-N3",
+      "N1-N4",
+      "N1-N5",
+      "N2-N3",
+      "N2-N4",
+      "N2-N5",
+      "N3-N4",
+      "N3-N5",
+      "N4-N5"
+    ],
+    "initiator": "alternates every cycle"
+  },
+  "obstacles": [],
+  "offline_windows_s": {},
+  "expected_behaviour": [
+    "Long-link sigma ~9-10 cm vs ~6 cm on short links",
+    "Timeout rate ~2-3% on 13 m+ links",
+    "Confidence weighting by range/RSSI should improve the fit"
+  ],
+  "stats": {
+    "records": 2000,
+    "ok": 1969,
+    "timeout": 26,
+    "rx_error": 5,
+    "nlos_measurements": 0,
+    "nlos_links": {},
+    "faults": {},
+    "true_range_m": [
+      6.297,
+      13.576
+    ],
+    "valid_measured_range_m": [
+      6.13,
+      13.826
+    ],
+    "max_valid_tof_ps": 46131.7,
+    "los_error_mean_m": -0.0049,
+    "los_error_std_m": 0.0775
+  }
+}

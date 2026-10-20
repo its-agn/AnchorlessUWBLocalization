@@ -1,0 +1,88 @@
+{
+  "case": "TC06_parallel_pair",
+  "title": "Two nodes walking side by side",
+  "description": "N3-N5 are static. After 2 s, N1 and N2 walk the same loop side by side, with N2 always 1.5 m in +y from N1, at 1.0 m/s. The N1-N2 range stays constant at 1.5 m, but their ranges to the static nodes change, so the motion is observable.",
+  "duration_s": 25.0,
+  "seed": 1006,
+  "arena_m": [
+    10.0,
+    10.0
+  ],
+  "node_height_m": 1.0,
+  "nodes": [
+    "N1",
+    "N2",
+    "N3",
+    "N4",
+    "N5"
+  ],
+  "initial_positions_m": {
+    "N1": [
+      2.0,
+      3.5
+    ],
+    "N2": [
+      2.0,
+      5.0
+    ],
+    "N3": [
+      1.0,
+      1.0
+    ],
+    "N4": [
+      9.0,
+      1.0
+    ],
+    "N5": [
+      5.0,
+      9.0
+    ]
+  },
+  "ranging": {
+    "method": "DS-TWR",
+    "channel": 5,
+    "cycle_s": 0.1,
+    "slot_s": 0.01,
+    "pair_rate_hz": 10.0,
+    "pair_order": [
+      "N1-N2",
+      "N1-N3",
+      "N1-N4",
+      "N1-N5",
+      "N2-N3",
+      "N2-N4",
+      "N2-N5",
+      "N3-N4",
+      "N3-N5",
+      "N4-N5"
+    ],
+    "initiator": "alternates every cycle"
+  },
+  "obstacles": [],
+  "offline_windows_s": {},
+  "expected_behaviour": [
+    "N1-N2 measured range constant ~1.5 m",
+    "N1/N2 tracks should be parallel and 1.5 m apart",
+    "Contrast with TC05, where no static node is present"
+  ],
+  "stats": {
+    "records": 2500,
+    "ok": 2479,
+    "timeout": 18,
+    "rx_error": 3,
+    "nlos_measurements": 0,
+    "nlos_links": {},
+    "faults": {},
+    "true_range_m": [
+      1.5,
+      8.944
+    ],
+    "valid_measured_range_m": [
+      1.326,
+      9.157
+    ],
+    "max_valid_tof_ps": 30552.3,
+    "los_error_mean_m": -0.0058,
+    "los_error_std_m": 0.0662
+  }
+}
